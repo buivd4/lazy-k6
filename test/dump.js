@@ -1,0 +1,1 @@
+const k6_lazy = import("lazy-k6")

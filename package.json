@@ -1,0 +1,25 @@
+{
+  "name": "k6builder",
+  "version": "0.0.1",
+  "description": "A script auto generator for K6",
+  "main": "src/index.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/buivd4/lazy-k6.git"
+  },
+  "keywords": [
+    "k6"
+  ],
+  "author": "buivd4",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/buivd4/lazy-k6/issues"
+  },
+  "homepage": "https://github.com/buivd4/lazy-k6#readme",
+  "directories": {
+    "test": "test"
+  }
+}
