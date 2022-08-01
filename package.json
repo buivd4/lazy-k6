@@ -1,10 +1,11 @@
 {
-  "name": "k6builder",
+  "name": "lazy-k6",
+  "type": "module",
   "version": "0.0.1",
   "description": "A script auto generator for K6",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
-    "test": ""
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,8 @@
   "homepage": "https://github.com/buivd4/lazy-k6#readme",
   "directories": {
     "test": "test"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
   }
 }

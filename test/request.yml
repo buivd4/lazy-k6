@@ -1,0 +1,15 @@
+options:
+  ram_vu: 10
+
+scenarios:
+  - request:
+      url: google.com
+      method: GET
+      headers:
+        Test-X-Header: ahihi
+  - request:
+      url: google.com
+      method: POST
+      headers:
+        Test-X-Header: XXXsss
+

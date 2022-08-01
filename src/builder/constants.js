@@ -63,7 +63,7 @@ const REQ_URL_TEMPLATE = `
 //      req_id: Id of the request
 //      value: value of the body
 const REQ_HEADER_TEMPLATE = `
-    const ${REQ_PARAM_VARNAME} = { headers: {value} };
+    const ${REQ_PARAM_VARNAME} = { headers: {headers} };
 `
 // For request body
 //      req_id: Id of the request
@@ -72,9 +72,38 @@ const REQ_BODY_TEMPLATE = `
     const ${REQ_BODY_VARNAME} = {value};
 `
 
-export default {
+/*
+    Script part
+*/
+const COMMON_HEADER = `
+import { sleep, check } from 'k6'
+import http from 'k6/http'
+import jsonpath from 'https://jslib.k6.io/jsonpath/1.0.2/index.js'
+`
+
+const OPTION_TEMPLATE = `
+export const options = {options}
+`
+
+const SCENARIO_TEMPLATE = `
+export function scenario_{nth}{
+    {request}
+}
+
+`
+
+const SCRIPT_TEMPLATE = `
+${COMMON_HEADER}
+
+{options}
+
+{scenarios}
+`
+
+export {
     GET, PUT, POST, DELETE,
     REQ_BODY_VARNAME, REQ_HEADER_VARNAME, REQ_URL_VARNAME, REQ_PARAM_VARNAME,
     REQ_GET_TEMPLATE, REQ_PUT_TEMPLATE, REQ_POST_TEMPLATE,REQ_DELETE_TEMPLATE,
-    REQ_URL_TEMPLATE, REQ_BODY_TEMPLATE, REQ_HEADER_TEMPLATE
+    REQ_URL_TEMPLATE, REQ_BODY_TEMPLATE, REQ_HEADER_TEMPLATE,
+    OPTION_TEMPLATE, SCENARIO_TEMPLATE, SCRIPT_TEMPLATE
 }

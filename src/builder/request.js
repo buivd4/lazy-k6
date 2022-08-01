@@ -1,9 +1,8 @@
-const { throws } = require("assert");
-const constants = require("./constants").default;
+import * as constants from "./constants.js"
 
-class Request{
+export class Request{
     id
-    method = GET
+    method = constants.GET
     url = new RequestUrl()
     body = undefined
     param = undefined
@@ -15,6 +14,12 @@ class Request{
     setParam(param){
         this.param = param
     }
+    setHeader(header){
+        if(this.param === undefined){
+            this.setParam(new RequestParam())
+        }
+        this.param.setHeader(header)
+    }
     setBody(body){
         this.body = body
     }
@@ -22,17 +27,17 @@ class Request{
         let output = ""
         let additional = ""
         let template
-        switch (method) {
-            case GET:
+        switch (this.method) {
+            case constants.GET:
                 template = constants.REQ_GET_TEMPLATE;
                 break;
-            case PUT:
+            case constants.PUT:
                 template = constants.REQ_PUT_TEMPLATE;
                 break;
-            case POST:
+            case constants.POST:
                 template = constants.REQ_POST_TEMPLATE;
                 break;
-            case DELETE:
+            case constants.DELETE:
                 template = constants.REQ_DELETE_TEMPLATE;
                 break;
             default:
@@ -40,7 +45,7 @@ class Request{
                 break;
         }
         output += this.url.generate(this.id);
-        if (this.body!==undefined){
+        if (this.body!==undefined && (this.method !== constants.GET)){
             output += this.body.generate(this.id)
             additional += `, ${constants.REQ_BODY_VARNAME}`.supplant({req_id: this.id})
         }
@@ -54,7 +59,7 @@ class Request{
     }
 }
 
-class RequestUrl{
+export class RequestUrl{
     value = ""
     constructor(value){
         this.setValue(value)
@@ -63,32 +68,34 @@ class RequestUrl{
         this.value = value
     }
     generate(reqId){
-        return constants.REQ_URL_TEMPLATE.supplant({req_id: reqId, value: value})
+        return constants.REQ_URL_TEMPLATE.supplant({req_id: reqId, value: this.value})
     }
 }
 
-class RequestParam{
+export class RequestParam{
     // Default header is empty
     headers = {}
+    constructor(headers){
+        this.headers = headers;
+    }
     setHeader(value){
         this.headers = value
     }
     generate(reqId){
-        return constants.REQ_HEADER_TEMPLATE.supplant({req_id: reqId, headers: JSON.stringify(headers)})
+        return constants.REQ_HEADER_TEMPLATE.supplant({req_id: reqId, headers: JSON.stringify(this.headers)})
     }
 }
 
-class RequestBody{
+export class RequestBody{
     // Default body is empty
     value = {}
+    constructor(value){
+        this.value=value
+    }
     setValue(value){
         this.value = value
     }
     generate(reqId){
-        return constants.REQ_BODY_TEMPLATE.supplant({req_id: reqId, value: JSON.stringify(value)})
+        return constants.REQ_BODY_TEMPLATE.supplant({req_id: reqId, value: JSON.stringify(this.value)})
     }
-}
-
-export default {
-    Request, RequestBody, RequestParam, RequestUrl
 }
