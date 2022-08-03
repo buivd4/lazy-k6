@@ -4,7 +4,7 @@ class Writer{
     }
 }
 
-fs = require('fs');
+import * as fs from 'fs'
 export class FileWriter extends Writer{
     output_file
     constructor(output_file){
@@ -12,7 +12,7 @@ export class FileWriter extends Writer{
         this.output_file = output_file
     }
     write(script){
-        fs.writeFile(this.output_file, script.generate())
+        fs.writeFile(this.output_file, script.generate(), ()=>{console.log(`Generated: ${this.output_file}`)})
     }
 }
 

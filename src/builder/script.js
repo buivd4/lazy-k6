@@ -1,18 +1,7 @@
 import * as constants from "./constants.js";
 import Options from "./options.js";
 
-export class Scenario {
-    nth
-    request
-    constructor(nth, request){
-        this.nth=nth
-        this.request = request
-    }
-    generate(){
-        return constants.SCENARIO_TEMPLATE.supplant({nth: this.nth, request: this.request.generate()})
-    }
-}
-export class Script{
+export default class Script{
     options= new Options()
     scenarios=[]
     setOptions(options){
@@ -20,6 +9,7 @@ export class Script{
     }
     addScenario(scenario){
         this.scenarios.push(scenario)
+        this.options.addScenario(scenario)
     }
     generate(){
         let scenarios = ""

@@ -57,7 +57,7 @@ const REQ_DELETE_TEMPLATE = `
 //      req_id: Id of the request
 //      value: value of the body
 const REQ_URL_TEMPLATE = `
-    const ${REQ_URL_VARNAME} = {value};
+    const ${REQ_URL_VARNAME} = "{value}";
 `
 // For request body
 //      req_id: Id of the request
@@ -86,7 +86,7 @@ export const options = {options}
 `
 
 const SCENARIO_TEMPLATE = `
-export function scenario_{nth}{
+export function {name}(){
     {request}
 }
 
@@ -100,10 +100,21 @@ ${COMMON_HEADER}
 {scenarios}
 `
 
+/*
+    DEFAULT VALUE ZONE
+*/
+const DEFAULT_SCENARIO_EXECUTOR = "ramping-vus"
+const DEFAULT_SCENARIO_GRACEFUL_STOP = "30s"
+const DEFAULT_SCENARIO_STAGES = [{ target: null, duration: '' }]
+const DEFAULT_SCENARIO_GRACEFUL_RAMPDOWN = "30s"
+
+//
+
 export {
     GET, PUT, POST, DELETE,
     REQ_BODY_VARNAME, REQ_HEADER_VARNAME, REQ_URL_VARNAME, REQ_PARAM_VARNAME,
     REQ_GET_TEMPLATE, REQ_PUT_TEMPLATE, REQ_POST_TEMPLATE,REQ_DELETE_TEMPLATE,
     REQ_URL_TEMPLATE, REQ_BODY_TEMPLATE, REQ_HEADER_TEMPLATE,
-    OPTION_TEMPLATE, SCENARIO_TEMPLATE, SCRIPT_TEMPLATE
+    OPTION_TEMPLATE, SCENARIO_TEMPLATE, SCRIPT_TEMPLATE,
+    DEFAULT_SCENARIO_EXECUTOR, DEFAULT_SCENARIO_GRACEFUL_STOP, DEFAULT_SCENARIO_STAGES, DEFAULT_SCENARIO_GRACEFUL_RAMPDOWN
 }

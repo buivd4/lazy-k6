@@ -4,6 +4,9 @@
   "version": "0.0.1",
   "description": "A script auto generator for K6",
   "main": "index.js",
+  "bin": {
+    "lazy-k6": "./src/cli.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

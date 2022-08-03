@@ -1,0 +1,22 @@
+# Created at Aug 03, 2022
+
+thresholds:
+  #Refer: https://k6.io/docs/using-k6/metrics/#http-specific-built-in-metrics
+  - metric: http_req_duration
+    statistics: "p(99)"
+    condition: ">"
+    value: 10
+
+scenarios:
+  - options:
+      executor: ram-vu
+      stages:
+        - target: 20
+          duration: '1m'
+        - target: 20
+          duration: '3m30s'
+        - target: 0
+          duration: '1m'
+      gracefulRampDown: '20s'
+    url: http://google.com
+    method: GET
